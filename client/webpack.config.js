@@ -1,18 +1,27 @@
-var webpack = require('webpack');
-var path = require('path');
+const path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'www');
-var APP_DIR = path.resolve(__dirname, 'src/app');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+//   template: './src/index.html',
+//   filename: 'index.html',
+//   inject: 'body'
+// })
 
-var config = {
-  entry: APP_DIR + '/index.jsx',
+module.exports = {
+  entry: './src/index.js',
   output: {
-    path: BUILD_DIR,
-    filename: 'bundle.js'
+    path: path.resolve('dist'),
+    filename: 'index_bundle.js'
+  },
+  module: {
+    loaders: [
+      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+    ]
   },
   devServer: {
-      contentBase: 'www'
-  }
-};
-
-module.exports = config;
+    contentBase: './dist',
+    historyApiFallback: true
+  },
+  // plugins: [ HtmlWebpackPluginConfig ]
+}
