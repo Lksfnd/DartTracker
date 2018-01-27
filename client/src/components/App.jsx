@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import milligram from 'milligram/dist/milligram.min.css';
+window.milligram = milligram;
 
 // Import components
 import CreatePlayer from './CreatePlayer/CreatePlayer.jsx';
+import ListPlayers from './ListPlayers/ListPlayers.jsx';
 import DemoElement from './DemoElement.jsx';
 
 export default class App extends Component {
@@ -17,6 +20,7 @@ export default class App extends Component {
                 <Switch>
                     <Route exact path='/' component={ DemoElement } />
                     <Route exact path='/player/add' component={ CreatePlayer } />
+                    <Route exact path='/player/list' component={ ListPlayers } />
                 </Switch>
             </div>
         );
