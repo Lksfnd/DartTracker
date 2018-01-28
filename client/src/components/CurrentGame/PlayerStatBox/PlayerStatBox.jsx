@@ -7,7 +7,8 @@ import {
     Column,
     PlayerName,
     AverageScore,
-    ProfileIcon
+    ProfileIcon,
+    ScoreToHit
     } from './PlayerStatBox.style'; 
 
 class PlayerStatBox extends Component {
@@ -17,7 +18,8 @@ class PlayerStatBox extends Component {
 
         this.state = {
             player: this.props.player,
-            average: 0.00
+            average: 0.00,
+            scoreToHit: 501
         };
     }
 
@@ -35,12 +37,12 @@ class PlayerStatBox extends Component {
                         </Column>
                     </Row>
                     <Row>
-                    <Column width="50%">
-                            501
-                    </Column>  
-                    <Column>
-                            STATS
-                    </Column>
+                        <Column colspan="2" width='80%'>
+                                501
+                        </Column>
+                        <Column>
+                            <ScoreToHit>{ this.state.scoreToHit }</ScoreToHit>
+                        </Column>
                     </Row>
                 </tbody></StatTable>
             </Box>

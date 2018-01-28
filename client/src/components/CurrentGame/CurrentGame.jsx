@@ -51,7 +51,15 @@ class CurrentGame extends Component {
             );
         }
 
+        let statBoxes = [];
+        for(let i=0; i < this.state.game.players.length; i++) {
+            statBoxes.push(
+                <PlayerStatBox player={ this.state.game.players[i] } key={ i } />
+            );
+        }
+
         return(
+            
             <div>
                 <InputSection>
                     <Resolver/>
@@ -72,7 +80,7 @@ class CurrentGame extends Component {
                     <ArrowsLeft amount={ 1 }/>
                 </InputSection>
                 <StatSection>
-                    <PlayerStatBox player={ this.state.game.players[0] }/>
+                    { statBoxes }
                 </StatSection>
             </div>
         );

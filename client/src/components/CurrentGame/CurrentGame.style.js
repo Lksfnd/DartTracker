@@ -23,4 +23,5 @@ export const StatSection = styled.div`
     width: 50vw;
     height: 100vh;
     padding: 1em;
+    overflow-y: scroll;
 `;
