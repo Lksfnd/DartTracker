@@ -17,6 +17,7 @@ class CreateGame extends Component {
         super(props);
         this.state = {
             players: [],
+            selectedPlayers: [],
             size: 301,
             inMode: 0,
             outMode: 0
@@ -26,6 +27,15 @@ class CreateGame extends Component {
         this.inModeChanged = this.inModeChanged.bind(this);
         this.outModeChanged = this.outModeChanged.bind(this);
         this.handleAddPlayer = this.handleAddPlayer.bind(this);
+        this.playerSelectionChanged = this.playerSelectionChanged.bind(this);
+        this.startGame = this.startGame.bind(this);
+    }
+
+    playerSelectionChanged(player, index) {
+        let selectedPlayers = this.state.selectedPlayers;
+        selectedPlayers[index] = player;
+        this.setState({ selectedPlayers });
+        console.log(this.state);
     }
 
     sizeChanged(size) {
@@ -33,18 +43,33 @@ class CreateGame extends Component {
     }
 
     inModeChanged(mode) {
-        this.setState({ inMode: mode });
+        this.setState({ inMode: parseInt(mode) });
     }
     outModeChanged(mode) {
-        this.setState({ outMode: mode });
+        this.setState({ outMode: parseInt(mode) });
     }
 
     handleAddPlayer() {
         let players = this.state.players;
         players.push(
-            <PlayerBadge key={ players.length }/>
+            <PlayerBadge 
+                pIndex={ players.length } 
+                key={ players.length } 
+                onChange={ this.playerSelectionChanged } />
         );
-        this.setState({ players })
+        let selectedPlayers = this.state.selectedPlayers;
+        selectedPlayers.push(null);
+        this.setState({ players, selectedPlayers })
+    }
+
+    startGame() {
+        localStorage.setItem("currentGame", JSON.stringify({
+            players: this.state.selectedPlayers,
+            size: this.state.size,
+            modeIn: this.state.inMode,
+            modeOut: this.state.outMode
+        }));
+        location.href = "/game/current";
     }
 
     render() {
@@ -77,9 +102,11 @@ class CreateGame extends Component {
                             { this.state.players }
                         </div>
                         <AddPlayerButton src='/assets/buttons/plus.png' onClick={ this.handleAddPlayer }/>
-                        <StartGameButton className={
-                            milligram.button + " " +
-                            milligram["button-large"] }>
+                        <StartGameButton
+                            className={
+                                milligram.button + " " +
+                                milligram["button-large"] }
+                            onClick={ this.startGame }>
                             Start game
                         </StartGameButton>
                     </SettingsRow>

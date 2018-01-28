@@ -7,6 +7,7 @@ window.milligram = milligram;
 import CreatePlayer from './CreatePlayer/CreatePlayer.jsx';
 import ListPlayers from './ListPlayers/ListPlayers.jsx';
 import CreateGame from './CreateGame/CreateGame.jsx';
+import CurrentGame from './CurrentGame/CurrentGame.jsx';
 import DemoElement from './DemoElement.jsx';
 
 export default class App extends Component {
@@ -23,6 +24,7 @@ export default class App extends Component {
                     <Route exact path='/player/add' component={ CreatePlayer } />
                     <Route exact path='/player/list' component={ ListPlayers } />
                     <Route exact path='/game/create' component={ CreateGame } />
+                    <Route exact path='/game/current' component={ CurrentGame } />
                 </Switch>
             </div>
         );

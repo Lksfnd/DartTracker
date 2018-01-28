@@ -17,7 +17,9 @@ class PlayerBadge extends Component {
         this.state = {
             icon: '/assets/someone.png',
             winRate: '',
-            availablePlayers: []
+            availablePlayers: [],
+            onChange: this.props.onChange || function(){},
+            index: this.props.pIndex || 0
         };
 
         rest.get(ApiRoute('/player/findall')).on('complete', (result) => {
@@ -40,6 +42,7 @@ class PlayerBadge extends Component {
             winRate: (isNaN(winrate)) ? "" : winrate + " %"
         });
         
+        this.state.onChange(selectedPlayer, this.state.index);
     }
 
     render() {
@@ -50,7 +53,6 @@ class PlayerBadge extends Component {
                     { this.state.availablePlayers[i].name }
                 </option>
             );
-            i++;
         }
 
         return(
